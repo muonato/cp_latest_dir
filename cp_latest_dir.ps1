@@ -12,7 +12,7 @@
 # Examples:
 #       PS> cp_latest_dir.ps1 -Source "\\app-server\patches" -Target "D:\patches"
 #
-#       Leave out the trailing forward slash character from directory path names.
+#       Leave out any trailing forward slash character from directory path names.
 #
 # Platform:
 #       Powershell 7.5.0
