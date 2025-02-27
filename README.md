@@ -4,7 +4,7 @@ Powershell script to search for subdirectory with the latest timestamp and copy 
 
 ## Parameters
 ```
-cp_latest_dir.ps -Source </path/to/source> -Target </path/to/target>
+PS> .\cp_latest_dir.ps -Source </path/to/source dir> -Target </path/to/target dir>
 ```
 1. Source: directory path to search recursively for latest subdirectory
 2. Target: directory path to copy the subdirectory with latest timestamp to
