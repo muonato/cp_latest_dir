@@ -1,18 +1,17 @@
-# muonato/cp_latest_dir.ps1 @ GitHub (27-FEB-2025)
+# muonato/cp_latest_dir.ps1 @ GitHub (11-MAR-2025)
 #
-# Copy sub-directory with the latest timestamp.
+# Recursively copy directory with the latest timestamp.
+# Creates non-existent target directory to copy to.
 #
 # Usage:
-#       PS> cp_latest_dir.ps1 "<source>" "<target>"
+#       PS> cp_latest.ps1 "<source>" "<target>"
 #
 # Parameters:
 #       1: Path to source directory
 #       2: Path to target directory
 #
 # Examples:
-#       PS> cp_latest_dir.ps1 -Source "\\app-server\patches" -Target "D:\patches"
-#
-#       Leave out any trailing forward slash character from directory path names.
+#       PS> cp_latest.ps1 -Source "\\app-server\patches" -Target "D:\patches"
 #
 # Platform:
 #       Powershell 7.5.0
@@ -21,12 +20,20 @@ param (
     [string]$Source,
     [string]$Target = ".\"
 )
-# Validate the paths specified as parameters
-if ((Test-Path $Source) -and (Test-Path $Target)) {
-    Write-Output "Searching latest sub-directory under '$Source'"
+# Validate source directory
+if (Test-Path $Source) {
+    Write-Output "Searching for latest in '$Source'"
 } else {
-    Write-Output "Invalid path, quotes missing maybe ?`r`n`t'$Source'`r`n`t'$Target'"
+    Write-Output "Invalid path, quotes maybe missing ?`r`n`t'$Source'`r`n`t'$Target'"
     exit
+}
+
+# Validate target directory
+if (Test-Path $Target) {
+    Write-Output "Found target directory '$Target'"
+} else {
+    Write-Output "Creating new directory '$Target'"
+    New-Item -ItemType Directory -Force -Path $Target
 }
 
 # Get directory with the most recent timestamp
@@ -37,9 +44,9 @@ $Latest = Get-ChildItem -Path $Source -Directory -Recurse |
 # Copy the directory with latest timestamp to target
 $Destination = "$Target\$(Split-Path $Latest -Leaf)"
 if ( Test-Path $Destination ) {
-	Write-Output "Destination directory '$Destination' already exists, skipping"
+	Write-Output "Destination path '$Destination' already exists, skipping"
 } else {
-	Write-Output "Copy latest ($($Latest.CreationTime)): $($Latest.FullName)"
+	Write-Output "Copying ($($Latest.CreationTime)): $($Latest.FullName)"
 	Copy-Item -Path $Latest.FullName -Destination $Target -Recurse
 }
 
