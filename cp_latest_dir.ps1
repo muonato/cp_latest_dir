@@ -1,6 +1,7 @@
 # muonato/cp_latest_dir.ps1 @ GitHub (11-MAR-2025)
 #
-# Recursively copy directory with the latest timestamp.
+# Searches recursively for subdir with the latest timestamp.
+# Copies the latest subdir in source path to target path.
 # Creates non-existent target directory to copy to.
 #
 # Usage:
@@ -11,7 +12,7 @@
 #       2: Path to target directory
 #
 # Examples:
-#       PS> cp_latest.ps1 -Source "\\app-server\patches" -Target "D:\patches"
+#       PS> cp_latest.ps1 -Source "\\app-server\patches" -Target "D:\patches\latest"
 #
 # Platform:
 #       Powershell 7.5.0
@@ -24,7 +25,7 @@ param (
 if (Test-Path $Source) {
     Write-Output "Searching for latest in '$Source'"
 } else {
-    Write-Output "Invalid path, quotes maybe missing ?`r`n`t'$Source'`r`n`t'$Target'"
+    Write-Output "Invalid path, quotes maybe missing ?`r`n`t'$Source'"
     exit
 }
 
@@ -32,7 +33,7 @@ if (Test-Path $Source) {
 if (Test-Path $Target) {
     Write-Output "Found target directory '$Target'"
 } else {
-    Write-Output "Creating new directory '$Target'"
+    Write-Output "Creating target directory '$Target'"
     New-Item -ItemType Directory -Force -Path $Target
 }
 
