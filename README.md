@@ -14,5 +14,5 @@ Leave out any trailing forward slash character from directory path names.
 
 ## Examples:
 ```
-PS> cp_latest_dir.ps1 -Source "\\app-server\patches" -Target "D:\patches"
+PS> cp_latest_dir.ps1 -Source "\\app-server\patches" -Target "D:\patches\latest"
 ```
