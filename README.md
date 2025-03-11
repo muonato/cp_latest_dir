@@ -1,6 +1,7 @@
 # cp_latest dir
 
 Powershell script to search for and copy subdirectory with the latest timestamp.
+Creates non-existent target directory to copy subdirectory to.
 
 ## Parameters
 ```
